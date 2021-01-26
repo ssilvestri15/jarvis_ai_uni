@@ -47,8 +47,11 @@ public class Jarvis {
     // -----------> MIGLIORE
     ClassRoomIndividual bestIndividual = results.getBestIndividual();
 
-    System.out.println("\nPOPOLAZIONE INIZIALE: "+ Arrays.toString(list));
-    System.out.println("\nMIGLIOR INDIVIDUO:    "+ Arrays.toString(bestIndividual.getCoding()) + " Fitness: "+bestIndividual.getFitness());
+    results.getLog().forEach(System.out::println);
+    System.out.printf("Search terminated in %d/%d iterations.%n", results.getNumberOfIterations(),
+        geneticAlgorithm.getMaxIterations());
+    System.out.printf("Best individual is %s, with fitness %.2f.%n",
+        Arrays.toString(bestIndividual.getCoding()), bestIndividual.getFitness());
 
     return bestIndividual.getCoding();
 
