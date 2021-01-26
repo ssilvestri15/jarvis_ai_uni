@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/OracoliGA/OracoliGA.iml" filepath="$PROJECT_DIR$/OracoliGA/OracoliGA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Oracoli_GA.iml" filepath="$PROJECT_DIR$/Oracoli_GA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ga-core/ga-core.iml" filepath="$PROJECT_DIR$/ga-core/ga-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ga-core/main.iml" filepath="$PROJECT_DIR$/ga-core/main.iml" />
+    </modules>
+  </component>
+</project>
