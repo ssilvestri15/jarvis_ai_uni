@@ -19,82 +19,31 @@ public class JarvisTest {
   private static final int maxIterationsNoImprovements = 0;
 
   public static void main(String[] args) throws CloneNotSupportedException {
-    ArrayList<String> prenotazioniList = new ArrayList<String>();
+    
+    int[] prenotazioniList = new int[classSize];
 
-    prenotazioniList.add("G");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("G");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("G");
-    prenotazioniList.add("G");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("G");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("S");
-    prenotazioniList.add("G");
-    prenotazioniList.add("S");
-    prenotazioniList.add("G");
+    prenotazioniList[0] = 1;
+    prenotazioniList[1] = 0;
+    prenotazioniList[2] = 0;
+    prenotazioniList[3] = 0;
+    prenotazioniList[4] = 0;
+    prenotazioniList[5] = 1;
+    prenotazioniList[6] = 0;
+    prenotazioniList[7] = 0;
+    prenotazioniList[8] = 1;
+    prenotazioniList[9] = 1;
+    prenotazioniList[10] = 0;
+    prenotazioniList[11] = 0;
+    prenotazioniList[12] = 0;
+    prenotazioniList[13] = 1;
+    prenotazioniList[14] = 0;
+    prenotazioniList[15] = 0;
+    prenotazioniList[16] = 0;
+    prenotazioniList[17] = 1;
+    prenotazioniList[18] = 0;
+    prenotazioniList[19] = 1;
 
-
-    disponiPrenotazione(prenotazioniList);
-  }
-
-  public static void disponiPrenotazione(ArrayList<String> prenotazioniList)
-      throws CloneNotSupportedException {
-
-    ArrayList<Integer> placeholderList = new ArrayList<>();
-
-    HashMap<String, String> map = new HashMap<>();
-
-    for (String s : prenotazioniList) {
-
-      if (isSingolo(s))
-        placeholderList.add(0);
-      else
-        placeholderList.add(1);
-
-      map.put(s, "");
-
-    }
-
-    ConflictsFunction fitnessFunction = new ConflictsFunction();
-    FixedSizeClassRoomInitializer
-        initializer = new FixedSizeClassRoomInitializer(placeholderList, numberOfClass);
-    RouletteWheelSelection<ClassRoomIndividual> selectionOperator = new RouletteWheelSelection<>();
-    ClassRoomSinglePointCrossover crossoverOperator = new ClassRoomSinglePointCrossover();
-    ClassRoomSwapMutation mutationOperator = new ClassRoomSwapMutation();
-
-    SimpleGeneticAlgorithm<ClassRoomIndividual> geneticAlgorithm =
-        new SimpleGeneticAlgorithm<>(fitnessFunction, initializer,
-            selectionOperator, crossoverOperator, mutationOperator, mutationProbability,
-            maxIterations, maxIterationsNoImprovements);
-    Results<ClassRoomIndividual> results = geneticAlgorithm.run();
-    ClassRoomIndividual bestIndividual = results.getBestIndividual();
-    results.getLog().forEach(System.out::println);
-    System.out.printf("Search terminated in %d/%d iterations.%n", results.getNumberOfIterations(),
-        geneticAlgorithm.getMaxIterations());
-    System.out.printf("Best individual is %s, with fitness %.2f.%n",
-        Arrays.toString(bestIndividual.getCoding()), bestIndividual.getFitness());
-
-  }
-
-  private static boolean isSingolo(String s) {
-
-    String[] array = s.split("-");
-    String type = array[array.length - 1];
-    boolean singolo = true;
-
-    if (type.equalsIgnoreCase("G"))
-      singolo = false;
-
-    return singolo;
+    Jarvis.disponiPrenotazione(prenotazioniList);
 
   }
 

@@ -7,13 +7,17 @@ public class ClassRoomIndividual extends IntArrayIndividual {
 
   private static final int maxIndividuals = 20;
 
+  /**
+   *
+   * Viene settata la popolazione
+   *
+   */
+
   public ClassRoomIndividual(int[] coding) {
+
     super(coding);
+    setCoding(coding);
 
-
-    int[] newCoding = Arrays.copyOf(coding, 20);
-
-    setCoding(newCoding);
   }
 
 

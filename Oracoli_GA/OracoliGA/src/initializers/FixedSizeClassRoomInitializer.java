@@ -6,13 +6,19 @@ import java.util.ArrayList;
 import populations.FixedSizePopulation;
 import populations.Population;
 
+/**
+ *
+ * Viene inizializzata la popolazione
+ *
+ */
+
 public class FixedSizeClassRoomInitializer extends Initializer<ClassRoomIndividual> {
 
-  private final ArrayList<Integer> list;
+  private final int[] list;
 
   private final int numberOfIndividuals;
 
-  public FixedSizeClassRoomInitializer(ArrayList<Integer> list, int numberOfIndividuals) {
+  public FixedSizeClassRoomInitializer(int[] list, int numberOfIndividuals) {
     this.list = list;
     this.numberOfIndividuals = numberOfIndividuals;
   }
@@ -22,22 +28,10 @@ public class FixedSizeClassRoomInitializer extends Initializer<ClassRoomIndividu
 
     FixedSizePopulation<ClassRoomIndividual> population = new FixedSizePopulation<>(0, numberOfIndividuals);
 
-    ClassRoomIndividual individual = new ClassRoomIndividual(toArray(list));
+    ClassRoomIndividual individual = new ClassRoomIndividual(list);
     population.add(individual);
 
     return population;
-  }
-
-  private int[] toArray (ArrayList<Integer> myList){
-
-    int[] array = new int[myList.size()];
-
-    for (int i = 0; i<myList.size(); i++) {
-      array[i] = myList.get(i);
-    }
-
-    return array;
-
   }
 
 }

@@ -16,11 +16,16 @@ public class ClassRoomSwapMutation extends RandomResettingMutation<ClassRoomIndi
     int lenght = coding.length;
 
     Random r = new Random();
-    int r0 = r.nextInt(lenght);
     Random rr = new Random();
+
+    int r0 = r.nextInt(lenght);
     int r1 = rr.nextInt(lenght);
-    while (r0 == r1) r1 = rr.nextInt(lenght);
+
+    while (r0 == r1)
+      r1 = rr.nextInt(lenght);
+
     int temp = coding[r0];
+
     coding[r0] = coding[r1];
     coding[r1] = temp;
 

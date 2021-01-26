@@ -2,6 +2,7 @@ import fitness.ConflictsFunction;
 import individuals.ClassRoomIndividual;
 import initializers.FixedSizeClassRoomInitializer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import metaheuristic.SimpleGeneticAlgorithm;
 import operators.ClassRoomSinglePointCrossover;
@@ -12,52 +13,44 @@ import results.Results;
 public class Jarvis {
 
   private static final int numberOfClass = 1;
-  private static final int classSize = 20;
   private static final double mutationProbability = 1;
   private static final int maxIterations = 1000;
-  private static final int maxIterationsNoImprovements = 0;
+  private static final int maxIterationsNoImprovements = 500;
 
-  public static void disponiPrenotazione(ArrayList<String> prenotazioniList) throws CloneNotSupportedException {
+  public static int[] disponiPrenotazione(int[] list) throws CloneNotSupportedException {
 
-    ArrayList<Integer> placeholderList = new ArrayList<>();
-    HashMap<String,String> map = new HashMap<>();
-
-    for (String s : prenotazioniList){
-
-      if (isSingolo(s))
-        placeholderList.add(0);
-      else
-        placeholderList.add(1);
-
-      map.put(s,"");
-
-    }
-
+    // -----------> FITNESS
     ConflictsFunction fitnessFunction = new ConflictsFunction();
+
+    // -----------> INIZIALIZZO POPOLAZIONE
     FixedSizeClassRoomInitializer
-        initializer = new FixedSizeClassRoomInitializer(placeholderList,numberOfClass);
+        initializer = new FixedSizeClassRoomInitializer(list, numberOfClass);
+
+    // -----------> ROULETTE
     RouletteWheelSelection<ClassRoomIndividual> selectionOperator = new RouletteWheelSelection<>();
+
+    // -----------> CROSSOVER
     ClassRoomSinglePointCrossover crossoverOperator = new ClassRoomSinglePointCrossover();
+
+    // -----------> MUTATION
     ClassRoomSwapMutation mutationOperator = new ClassRoomSwapMutation();
 
+    // -----------> ALGORITMO GENETICO
     SimpleGeneticAlgorithm<ClassRoomIndividual> geneticAlgorithm =
         new SimpleGeneticAlgorithm<>(fitnessFunction, initializer,
             selectionOperator, crossoverOperator, mutationOperator, mutationProbability,
             maxIterations, maxIterationsNoImprovements);
+
+    // -----------> RISULTATO
     Results<ClassRoomIndividual> results = geneticAlgorithm.run();
+
+    // -----------> MIGLIORE
     ClassRoomIndividual bestIndividual = results.getBestIndividual();
-    }
 
-  private static boolean isSingolo(String s) {
+    System.out.println("\nPOPOLAZIONE INIZIALE: "+ Arrays.toString(list));
+    System.out.println("\nMIGLIOR INDIVIDUO:    "+ Arrays.toString(bestIndividual.getCoding()) + " Fitness: "+bestIndividual.getFitness());
 
-    String[] array = s.split("-");
-    String type = array[array.length-1];
-    boolean singolo = true;
-
-    if (type.equalsIgnoreCase("G"))
-      singolo = false;
-
-    return singolo;
+    return bestIndividual.getCoding();
 
   }
 

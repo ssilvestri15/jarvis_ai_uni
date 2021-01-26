@@ -44,7 +44,6 @@ public class SimpleGeneticAlgorithm<T extends Individual> extends GeneticAlgorit
         List<String> log = new ArrayList<>();
         Stack<Population<T>> generations = new Stack<>();
 
-        // Initialization of the first generation
         generations.push(getInitializer().initialize());
         Population<T> firstGeneration = generations.peek();
         getFitnessFunction().evaluate(firstGeneration);
@@ -58,21 +57,31 @@ public class SimpleGeneticAlgorithm<T extends Individual> extends GeneticAlgorit
             StringBuilder logEntry = new StringBuilder();
             Population<T> currentGeneration = generations.peek();
 
-            // Selection
+            // SELEZIONO LA POPOLAZIONE DA ACCOPPIARE
             Population<T> matingPool = getSelectionOperator().apply(currentGeneration, rand);
-            // Crossover
+
+            // CROSSOVER
             Population<T> offsprings = getCrossoverOperator().apply(matingPool, rand);
-            // Mutation
+
+            // MUTAZIONE DELLA POPOLAZIONE
             Population<T> newGeneration = offsprings;
+
+            // CREO NUOVA GENERAZIONE
             if (rand.nextDouble() <= mutationProbability) {
                 newGeneration = getMutationOperator().apply(offsprings, rand);
             }
+
+            // CALCOLO NUOVA FITNESS
             getFitnessFunction().evaluate(newGeneration);
+
+            // INSERISCO NUOVA POPOLAZIONE
             generations.push(newGeneration);
+
+            // AUMENTO ITERAZIONE
             iterations++;
             logEntry.append("Gen ").append(iterations).append(") ");
 
-            // Check if there is an average improvement
+            // CONTROLLO MIGLIORAMENTO
             double bestAverageFitness = bestGeneration.getAverageFitness();
             double newAverageFitness = newGeneration.getAverageFitness();
             logEntry.append(newAverageFitness).append(" vs ").append(bestAverageFitness).append(" (NewAvg vs BestAvg)");
@@ -92,6 +101,7 @@ public class SimpleGeneticAlgorithm<T extends Individual> extends GeneticAlgorit
             }
             log.add(logEntry.toString());
         } while (iterations < maxIterations && !maxNoImprovementsExceeded);
+
         return new Results<>(this, generations, bestGeneration, log);
     }
 
