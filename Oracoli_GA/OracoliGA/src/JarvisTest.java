@@ -12,11 +12,8 @@ import results.Results;
 
 public class JarvisTest {
 
-  private static final int numberOfClass = 1;
   private static final int classSize = 20;
-  private static final double mutationProbability = 1;
-  private static final int maxIterations = 1000;
-  private static final int maxIterationsNoImprovements = 0;
+
 
   public static void main(String[] args) throws CloneNotSupportedException {
     
